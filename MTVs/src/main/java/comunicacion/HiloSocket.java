@@ -61,20 +61,7 @@ public class HiloSocket extends Thread {
                     first = false;
                     System.out.println(this.identificador);
                 } else {
-                    nextByte = dataInputStream.readByte();
-                    messageBuffer.write(nextByte);
-                    str = new String(messageBuffer.toByteArray());
-                    aux = esFijo(str);
-                    if (aux != -1) {
-                        leerFijo();
-                    } else {
-                        if (str.equalsIgnoreCase("{")) {
-                            leerJSON();
-                        } else {
-                            leerDelimitado();
-                        }
-                    }
-                    str=null;
+                    
                 }
             }
 //            out.close();
@@ -86,6 +73,11 @@ public class HiloSocket extends Thread {
 
     }
 
+    private void notificarEstado(){
+    
+    
+    }
+    
     public int numero() throws IOException {
         int nextByte;
         String numero;
@@ -111,74 +103,10 @@ public class HiloSocket extends Thread {
         }
         System.out.println(str);
         messageBuffer.reset();
-        this.crearContextoJSON();
     }
 
     public void identificar(String valor) {
-        if (valor.equals("0")) {
-            this.identificador = "D";
-        } else if (valor.equals("1")) {
-            this.identificador = "F";
-        } else {
-            this.identificador = "J";
-        }
-    }
-
-    public void leerDelimitado() {
-        while (true) {
-            try {
-                nextByte = dataInputStream.readByte();
-                messageBuffer.write(nextByte);
-                str = new String(messageBuffer.toByteArray());
-                if (str.contains("/")) {
-                    break;
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(HiloSocket.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        System.out.println(str);
-        messageBuffer.reset();
-        this.crearContextoDelimitador();
-    }
-
-    public void leerFijo() throws IOException {
-        int num = numero();
-        for (int j = 0; j < num; j++) {
-            try {
-                nextByte = dataInputStream.readByte();
-                messageBuffer.write(nextByte);
-                str = new String(messageBuffer.toByteArray());
-            } catch (IOException ex) {
-                Logger.getLogger(HiloSocket.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        System.out.println(str);
-        messageBuffer.reset();
-        crearContextoFijo(new String(num + "").length() + 1);
-    }
-
-    public int esFijo(String texto) {
-        texto.substring(0, 0);
-        if (texto.matches("[0-9]+")) {
-            return Integer.parseInt(texto);
-        } else {
-            return -1;
-        }
-    }
-
-    public void crearContextoJSON() {
-        str = str.replaceAll(":", "-");
-        str = str.replaceAll(",", "-");
-        str = str.replaceAll("\"", "");
-        str = str.substring(1, str.length() - 1);
-        String[] valores = str.split("-", 0);
-        String emisor = this.identificador;
-        String receptor = valores[1];
-        String mensaje = obtenerMensaje(valores);
-//        Context context = new Context(mensaje, emisor, receptor);
-//        System.out.println(context.toString());
-//        servidor.ajustarContexto(context);
+        this.identificador= servidor.cantidadSemaforos()+1;
     }
 
     public String obtenerMensaje(String[]valores) {

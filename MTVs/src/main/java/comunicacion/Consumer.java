@@ -25,7 +25,7 @@ public class Consumer {
     /**
      * @param args the command line arguments
      * @throws java.io.IOException
-     * @throws java.lang.InterruptedException
+     * @throws java.lang.InterruptedException   
      * @throws java.util.concurrent.TimeoutException
      */
     public static void main(String[] args) throws IOException, InterruptedException, TimeoutException {
