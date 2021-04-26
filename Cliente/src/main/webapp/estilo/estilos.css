@@ -1,0 +1,24 @@
+.navegacion {
+  background-color: white;
+  overflow: hidden;
+}
+
+.navegacion a {
+  float: left;
+  color: activecaption;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navegacion a:hover {   
+  background-color: blueviolet;
+  color: white;
+}
+
+.navegacion a.active {
+  background-color: aliceblue;
+  color: black;
+}
+
