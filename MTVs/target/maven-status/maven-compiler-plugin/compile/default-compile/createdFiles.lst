@@ -1,0 +1,17 @@
+Dominio\ReporteMaterial_.class
+Dominio\ReporteCongestion_.class
+BDC\control\IDBC.class
+BDC\control\FNegocio.class
+BDC\dao\RepositoryRM.class
+Dominio\ReporteMaterial.class
+BDC\control\ControlReporteC.class
+Dominio\Reporte.class
+BDC\dao\BaseRepository.class
+Dominio\ReporteCongestion.class
+Reportes\Reporte.class
+Dominio\Reporte_.class
+Congestiones\Congestiones.class
+BDC\dao\RepositoryRC.class
+BDC\control\BaseControl.class
+Reportes\IReportes.class
+BDC\control\ControlReporteM.class
