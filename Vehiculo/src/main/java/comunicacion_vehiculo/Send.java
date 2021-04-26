@@ -5,6 +5,7 @@
  */
 package comunicacion_vehiculo;
 
+import com.google.gson.Gson;
 import ubicacion.Vehiculo;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
@@ -19,7 +20,8 @@ import java.util.logging.Logger;
  */
 public class Send implements IComunicacionVehiculo{
     private final static String QUEUE_NAME = "vehiculo";
-
+    private final Gson gson= new Gson();
+    
     Vehiculo v;
 
     public Send() {
@@ -40,12 +42,11 @@ public class Send implements IComunicacionVehiculo{
         try (Connection connection = factory.newConnection();
                 Channel channel = connection.createChannel()) {
             channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-            String message = v.getUbi().getLongitud()+"";
+            String message = gson.toJson(v);
+           
              //System.out.println(" [x] Sent '" + message + "'");
-            for (int i = 0; i < 10; i++) {
                 //channel.basicPublish("", QUEUE_NAME, null, message.getBytes()); 
-                channel.basicPublish("", QUEUE_NAME, null, message.getBytes());  
-            }
+                channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
         } catch (IOException ex) {
             Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TimeoutException ex) {

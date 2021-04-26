@@ -13,20 +13,20 @@ import java.util.Random;
  */
 public class Vehiculo {
 
-    private Ubicacion ubi;
+    private Ubicacion ubicacion;
     private final String matricula;    
 
     public Vehiculo() {
         matricula = generarMatricula();
-        this.ubi = new Ubicacion(0,0,0);
+        this.ubicacion = new Ubicacion(0,0,0);
     }
 
     public Ubicacion getUbi() {
-        return ubi;
+        return ubicacion;
     }
 
     public void setUbi(Ubicacion ubi) {
-        this.ubi = ubi;
+        this.ubicacion = ubi;
     }
 
     public String getMatricula() {

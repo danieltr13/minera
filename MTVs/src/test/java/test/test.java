@@ -34,11 +34,13 @@ public class test {
         String json3 = gson.toJson(new vehiculo("321", new ubicacion(80, 15, 16)));
         String json2 = gson.toJson(new vehiculo("asdas", new ubicacion(40, 15, 16)));
         JsonObject jVehiculo = gson.fromJson(json, JsonObject.class);
+        System.out.println(jVehiculo.getAsJsonObject("ubicacion").get("latitud").getAsInt());
+
         con.agregarVehiculo(gson.fromJson(json, JsonObject.class));
         con.agregarVehiculo(gson.fromJson(json1, JsonObject.class));
         con.agregarVehiculo(gson.fromJson(json2, JsonObject.class));
         con.agregarVehiculo(gson.fromJson(json3, JsonObject.class));
-        System.out.println(jVehiculo.getAsJsonObject("ubicacion").get("x").getAsInt());
+
     }
 
     public static boolean agregarCongestion(Integer vehiculo1, Integer vehiculo2) {
@@ -55,12 +57,12 @@ public class test {
 
     public static class ubicacion {
 
-        public int x;
+        public int latitud;
         public int y;
         public int z;
 
         public ubicacion(int x, int y, int z) {
-            this.x = x;
+            this.latitud = x;
             this.y = y;
             this.z = z;
         }

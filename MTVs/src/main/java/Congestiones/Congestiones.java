@@ -15,24 +15,21 @@ import java.util.List;
  *
  * @author Alfon
  */
-public class Congestiones implements ICongestiones{
+public class Congestiones implements ICongestiones {
 
     private final List<Integer> vehiculos;
     private final List<Integer> congestion;
     private final IReportes reportes;
-   
+
     public Congestiones() {
         this.vehiculos = new ArrayList<>();
         this.congestion = new ArrayList<>();
-        this.reportes= new Reporte();
+        this.reportes = new Reporte();
     }
-    
- 
-    
-    
+
     @Override
     public void agregarVehiculo(JsonObject json) {
-        vehiculos.add(json.getAsJsonObject("ubicacion").get("x").getAsInt());
+        vehiculos.add(json.getAsJsonObject("ubicacion").get("latitud").getAsInt());
         detectarCongestion(json);
     }
 
@@ -43,26 +40,28 @@ public class Congestiones implements ICongestiones{
 
     @Override
     public boolean detectarCongestion(JsonObject json) {
-        System.out.println(vehiculos.size());
-        for (int i = 0; i < vehiculos.size()-1; i++) {
-            if (congestion.isEmpty()) {
-                agregarACongestiones(vehiculos.get(i));
-                
+        if (congestion.isEmpty()) {
+            congestion.add(vehiculos.get(0));
+        }
+        if (vehiculos.size() > 2) {
+            for (int i = 0; i < vehiculos.size()-1; i++) {
+                if (this.distanciaVehiculos(vehiculos.get(i), vehiculos.get(i + 1))) {
+                    this.congestion.add(i + 1);
+                }
             }
         }
         if (this.congestion.size()>=3) {
             this.crearReporteC(json);
             return true;
         }
-       return false;
+        return false;
     }
 
-
     @Override
-    public boolean distanciaVehiculos(Integer vehiculo1, Integer vehiculo2){
-       int diferencia= vehiculo2-vehiculo1;
-       return diferencia>=100;
-   }
+    public boolean distanciaVehiculos(Integer vehiculo1, Integer vehiculo2) {
+        int diferencia = vehiculo2 - vehiculo1;
+        return diferencia >= 50;
+    }
 
     @Override
     public boolean crearReporteC(JsonObject json) {
