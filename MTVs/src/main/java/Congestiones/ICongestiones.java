@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
  * @author Alfon
  */
 public interface ICongestiones {
-    public void agregarVehiculo(Integer posicion);
+    public void agregarVehiculo(JsonObject json);
     public void agregarACongestiones(Integer posicion);
     public boolean detectarCongestion(JsonObject json);
     public boolean crearReporteC(JsonObject json);

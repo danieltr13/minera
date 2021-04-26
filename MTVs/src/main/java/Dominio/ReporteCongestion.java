@@ -24,7 +24,7 @@ import javax.persistence.Entity;
     @Column(name = "eventualidad", length = 255)
     private String eventualidad;
     @Column(name = "ubicacion")
-    private int ubicacion;
+    private Integer ubicacion;
     @Column(name = "causa")
     private String causa;
 

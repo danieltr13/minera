@@ -26,11 +26,14 @@ public class Congestiones implements ICongestiones{
         this.congestion = new ArrayList<>();
         this.reportes= new Reporte();
     }
-
+    
+ 
+    
+    
     @Override
-    public void agregarVehiculo(Integer posicion) {
-        vehiculos.add(posicion);
-
+    public void agregarVehiculo(JsonObject json) {
+        vehiculos.add(json.getAsJsonObject("ubicacion").get("x").getAsInt());
+        detectarCongestion(json);
     }
 
     @Override
@@ -40,12 +43,11 @@ public class Congestiones implements ICongestiones{
 
     @Override
     public boolean detectarCongestion(JsonObject json) {
+        System.out.println(vehiculos.size());
         for (int i = 0; i < vehiculos.size()-1; i++) {
             if (congestion.isEmpty()) {
                 agregarACongestiones(vehiculos.get(i));
-            }
-            if (distanciaVehiculos(this.congestion.get(i), vehiculos.get(i+1))) {
-                agregarACongestiones(vehiculos.get(i+1));
+                
             }
         }
         if (this.congestion.size()>=3) {
@@ -64,6 +66,9 @@ public class Congestiones implements ICongestiones{
 
     @Override
     public boolean crearReporteC(JsonObject json) {
+        json.addProperty("eventualidad", "congestion");
+        json.addProperty("causa", "trafico");
+        json.addProperty("ubicacion", vehiculos.get(1));
         this.reportes.agregarRC(json);
         return true;
     }
