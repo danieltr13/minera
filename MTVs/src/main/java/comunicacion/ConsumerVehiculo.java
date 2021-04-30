@@ -5,6 +5,7 @@
  */
 package comunicacion;
 
+ 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -18,14 +19,14 @@ import java.util.concurrent.TimeoutException;
  *
  * @author Alfon
  */
-public class Consumer {
+public class ConsumerVehiculo {
 
     private final static String QUEUE_NAME = "vehiculo";
 
     /**
      * @param args the command line arguments
      * @throws java.io.IOException
-     * @throws java.lang.InterruptedException   
+     * @throws java.lang.InterruptedException
      * @throws java.util.concurrent.TimeoutException
      */
     public static void main(String[] args) throws IOException, InterruptedException, TimeoutException {
@@ -37,7 +38,7 @@ public class Consumer {
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
         DeliverCallback deliverCallback = (String consumerTag, Delivery delivery) -> {
             String d = " ";
-
+            
             d = new String(delivery.getBody(), StandardCharsets.UTF_8);
             
             System.out.println(" [x] Received '" + d + "'");
