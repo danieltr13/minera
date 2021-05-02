@@ -58,16 +58,11 @@ public class Camionero extends javax.swing.JFrame {
 
         lblVehiculo.setText("Vehiculo:");
 
-        jtxtTipo.setText(" ");
-
-        jtxtCantidad.setText(" ");
         jtxtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtxtCantidadKeyTyped(evt);
             }
         });
-
-        jtxtVehiculo.setText(" ");
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {

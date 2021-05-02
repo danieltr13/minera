@@ -95,22 +95,13 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtxtTipo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtxtCantidad">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
       <Events>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtCantidadKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtxtVehiculo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
