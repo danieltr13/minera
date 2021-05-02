@@ -41,7 +41,7 @@ public class Reporte implements IReportes {
 
     public ReporteMaterial jsonToRM(JsonObject json) {
         String tipo = json.get("tipo").getAsString();
-        Integer cantidad = json.get("cantidad").getAsInt();
+        Float cantidad = json.get("cantidad").getAsFloat();
         String vehiculo = json.get("vehiculo").getAsString();
         return new ReporteMaterial(tipo, cantidad, vehiculo);
     }

@@ -23,21 +23,21 @@ public class ReporteMaterial extends Reporte implements Serializable {
     @Column(name = "tipo",length = 55)
     private String tipo;
     @Column(name = "cantidad")
-    private Integer cantidad;
+    private Float cantidad;
     @Column(name = "vehiculo")
     private String vehiculo;
 
     public ReporteMaterial() {
     }
 
-    public ReporteMaterial(String tipo, Integer cantidad, String vehiculo) {
+    public ReporteMaterial(String tipo, Float cantidad, String vehiculo) {
         super();
         this.tipo = tipo;
         this.cantidad = cantidad;
         this.vehiculo = vehiculo;
     }
 
-    public ReporteMaterial(String tipo, Integer cantidad, String vehiculo, Long id) {
+    public ReporteMaterial(String tipo, Float cantidad, String vehiculo, Long id) {
         super(id);
         this.tipo = tipo;
         this.cantidad = cantidad;
@@ -62,11 +62,11 @@ public class ReporteMaterial extends Reporte implements Serializable {
         this.tipo = tipo;
     }
 
-    public Integer getCantidad() {
+    public Float getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(Float cantidad) {
         this.cantidad = cantidad;
     }
 
