@@ -5,6 +5,8 @@
  */
 package manejoEstados;
 
+import comunicacion.ConsumerSemaforo2;
+
 /**
  *
  * @author jc
@@ -14,6 +16,9 @@ public class prueba {
     public static void main(String[] args) {
         Semaforo s = new Semaforo();
         
-        ActualizarEstado ae = new ActualizarEstado(s);        
+        
+        ActualizarEstado ae = new ActualizarEstado(s);
+        ConsumerSemaforo2 consumer= new ConsumerSemaforo2("paco", s);
+        consumer.start();        
     }
 }

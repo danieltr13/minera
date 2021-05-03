@@ -17,19 +17,20 @@ import static manejoEstados.Estado.STOP;
  * @author jc
  */
 public class ActualizarEstado {
-    
+
     private final Semaforo semaforo;
     private final Timer timer;
-    
-    public ActualizarEstado(Semaforo semaforo){
+
+    public ActualizarEstado(Semaforo semaforo) {
         this.semaforo = semaforo;
         timer = new Timer();
-        
-        timer.scheduleAtFixedRate(new NuevoEstado(semaforo), 0, 10000);
+        NuevoEstado nuevoEstado = new NuevoEstado(semaforo);
+        timer.scheduleAtFixedRate(nuevoEstado, 0, 5000);
     }
 }
 
 class NuevoEstado extends TimerTask {
+
     private final Semaforo semaforo;
     Sender send = new Sender();
 
@@ -37,29 +38,35 @@ class NuevoEstado extends TimerTask {
         this.semaforo = semaforo;
     }
     
-    public void run(){
-        System.out.println(semaforo.toString());
-        send.mandar(semaforo);
+    //Verificar orden
+    public void run() {
         cambioEstado();
+        send.mandar(semaforo);
+        System.out.println(semaforo.toString());
     }
-    
-    private void cambioEstado(){
+
+    private void cambioEstado() {
         Estado e = semaforo.getEstado();
-        
-        if(null != e)switch (e) {
-            case GO:
-                e = Estado.CAUTION;
-                break;
-            case CAUTION:
-                e = Estado.STOP;
-                break;
-            case STOP:
-                e = Estado.GO;
-                break;
-            default:
-                break;
+
+        if (!semaforo.isCambioExt()) {
+            if (null != e) {
+                switch (e) {
+                    case GO:
+                        e = Estado.CAUTION;
+                        break;
+                    case CAUTION:
+                        e = Estado.STOP;
+                        break;
+                    case STOP:
+                        e = Estado.GO;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }else{
+            semaforo.setCambioExt(false);
         }
-        
         semaforo.setEstado(e);
     }
 }

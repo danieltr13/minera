@@ -14,7 +14,7 @@ import java.util.Random;
 public class Semaforo {
     private final String id;
     private Estado estado;
-    //Ubicacion
+    private boolean cambioExt;
     
     public Semaforo() {
         this.id = generarMatricula();      
@@ -46,6 +46,14 @@ public class Semaforo {
         int num = rnd.nextInt(9999);
 
         return String.format("%04d", num);
+    }
+
+    public boolean isCambioExt() {
+        return cambioExt;
+    }
+
+    public void setCambioExt(boolean cambioExt) {
+        this.cambioExt = cambioExt;
     }
 
     @Override

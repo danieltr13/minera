@@ -5,18 +5,11 @@
  */
 package test;
 
-import BDC.control.FNegocio;
-import BDC.control.IDBC;
 
-/**
- *
- * @author Alfon
- */
 public class test {
 
     public static void main(String[] args) {
-        IDBC fachada = new FNegocio();
-        System.out.println(fachada.buscarComoRC("280916,483057,693725,"));
+      
     }
 
 }
