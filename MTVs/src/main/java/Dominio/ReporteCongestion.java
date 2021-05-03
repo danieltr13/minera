@@ -27,6 +27,8 @@ import javax.persistence.Entity;
     private Integer ubicacion;
     @Column(name = "causa")
     private String causa;
+    @Column(name = "matriculas")
+    private String matriculas;
 
     public ReporteCongestion() {
     }
@@ -37,13 +39,21 @@ import javax.persistence.Entity;
         this.causa = causa;
     }
 
-    public ReporteCongestion(String eventualidad, int ubicacion, String causa, Long id) {
-        super(id);
+    
+    public ReporteCongestion(String eventualidad, Integer ubicacion, String causa, String matricula) {
         this.eventualidad = eventualidad;
         this.ubicacion = ubicacion;
         this.causa = causa;
+        this.matriculas = matricula;
+    }
+
+    public void setMatriculas(String matriculas) {
+        this.matriculas = matriculas;
     }
     
+    public String getMatricula(){
+        return this.matriculas;
+    }
     public String getEventualidad() {
         return eventualidad;
     }
@@ -100,7 +110,8 @@ import javax.persistence.Entity;
 
     @Override
     public String toString() {
-        return "ReporteCongestion{"+ "idReporte"+this.id + "eventualidad=" + eventualidad + ", ubicacion=" + ubicacion + ", causa=" + causa + '}';
+        return "ReporteCongestion{" + "eventualidad=" + eventualidad + ", ubicacion=" + ubicacion + ", causa=" + causa + ", matricula=" + matriculas + '}';
     }
 
+     
 }

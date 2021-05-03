@@ -2,6 +2,7 @@ Congestiones\ICongestiones.class
 Dominio\ReporteMaterial_.class
 Dominio\ReporteCongestion_.class
 BDC\control\IDBC.class
+comunicacion\SenderSemaforo.class
 BDC\control\FNegocio.class
 BDC\dao\RepositoryRM.class
 Dominio\ReporteMaterial.class
@@ -10,6 +11,7 @@ BDC\control\ControlReporteC.class
 Dominio\Reporte.class
 BDC\dao\BaseRepository.class
 comunicacion\ConsumerCamionero.class
+comunicacion\ConsumerSemaforo.class
 Dominio\ReporteCongestion.class
 Reportes\Reporte.class
 Dominio\Reporte_.class

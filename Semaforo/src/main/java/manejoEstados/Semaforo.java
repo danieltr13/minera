@@ -21,6 +21,13 @@ public class Semaforo {
         this.estado = Estado.GO;
     }
 
+    public Semaforo(String id, Estado estado) {
+        this.id = id;
+        this.estado = estado;
+    }
+
+     
+    
     public String getId() {
         return id;
     }    

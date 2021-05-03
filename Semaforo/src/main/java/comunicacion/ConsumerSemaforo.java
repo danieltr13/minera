@@ -40,7 +40,7 @@ public class ConsumerSemaforo {
             String message = new String(delivery.getBody(), "UTF-8");
             System.out.println(" [x] Received '"
                     + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
-            sender.mandar(new Semaforo(1, Estado.STOP));
+            sender.mandar(new Semaforo(String.valueOf(1), Estado.STOP));
         };
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
         });

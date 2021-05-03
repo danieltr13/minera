@@ -51,6 +51,7 @@ public class RepositoryRC implements BaseRepository<ReporteCongestion>{
             rCongestion.setCausa(entidad.getCausa());
             rCongestion.setEventualidad(entidad.getEventualidad());
             rCongestion.setUbicacion(entidad.getUbicacion());
+            rCongestion.setMatriculas(entidad.getMatricula());
             entityManager.merge(rCongestion);
             entityManager.getTransaction().commit();
             entityManager.close();
@@ -108,7 +109,7 @@ public class RepositoryRC implements BaseRepository<ReporteCongestion>{
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<ReporteCongestion> reporteCongestion = builder.createQuery(ReporteCongestion.class);
         Root<ReporteCongestion> root = reporteCongestion.from(ReporteCongestion.class);
-        reporteCongestion = reporteCongestion.select(root).where(builder.like(root.get("causa"), "%" + busqueda + "%"));
+        reporteCongestion = reporteCongestion.select(root).where(builder.like(root.get("matriculas"), "%" + busqueda + "%"));
         TypedQuery<ReporteCongestion> typedQuery = em.createQuery(reporteCongestion);
         ArrayList<ReporteCongestion> reportesM = new ArrayList<>(typedQuery.getResultList());
         em.getTransaction().commit();
