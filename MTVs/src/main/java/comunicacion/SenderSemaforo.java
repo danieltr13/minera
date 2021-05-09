@@ -5,6 +5,7 @@
  */
 package comunicacion;
 
+import com.google.gson.JsonObject;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -19,14 +20,18 @@ public class SenderSemaforo {
     private static final String EXCHANGE_NAME = "topic_logs";
 
     public static void main(String[] args) throws InterruptedException {
+        JsonObject estado= new JsonObject();
+        estado.addProperty("estado", "GO");
         try {
-            send("paco", "JC no te duermas");
+            send("paco", estado.toString());
             Thread.sleep(5000);
             send("juan", "Hola amigo");
         } catch (IOException | TimeoutException ex) {
             Logger.getLogger(SenderSemaforo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 
     public static void send(String route, String messages) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();

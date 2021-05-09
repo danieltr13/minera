@@ -18,15 +18,13 @@ public class Semaforo {
     
     public Semaforo() {
         this.id = generarMatricula();      
-        this.estado = Estado.GO;
+        this.estado = Estado.STOP;
     }
 
     public Semaforo(String id, Estado estado) {
         this.id = id;
         this.estado = estado;
-    }
-
-     
+    }    
     
     public String getId() {
         return id;

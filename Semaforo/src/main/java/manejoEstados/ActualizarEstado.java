@@ -25,7 +25,7 @@ public class ActualizarEstado {
         this.semaforo = semaforo;
         timer = new Timer();
         NuevoEstado nuevoEstado = new NuevoEstado(semaforo);
-        timer.scheduleAtFixedRate(nuevoEstado, 0, 5000);
+        timer.scheduleAtFixedRate(nuevoEstado, 0, 2500);
     }
 }
 
@@ -40,14 +40,14 @@ class NuevoEstado extends TimerTask {
     
     //Verificar orden
     public void run() {
+        //System.out.println(semaforo.toString());
         cambioEstado();
         send.mandar(semaforo);
-        System.out.println(semaforo.toString());
+        semaforo.setCambioExt(false);
     }
 
     private void cambioEstado() {
         Estado e = semaforo.getEstado();
-
         if (!semaforo.isCambioExt()) {
             if (null != e) {
                 switch (e) {
@@ -64,8 +64,6 @@ class NuevoEstado extends TimerTask {
                         break;
                 }
             }
-        }else{
-            semaforo.setCambioExt(false);
         }
         semaforo.setEstado(e);
     }
