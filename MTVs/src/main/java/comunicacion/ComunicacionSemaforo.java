@@ -24,11 +24,16 @@ import java.util.logging.Logger;
 public final class ComunicacionSemaforo {
 
     private final static String QUEUE_NAME = "semaforoSender";
-
+    private ComunicacionManager cm;
     private static final String EXCHANGE_NAME = "topic_logs";
-
+    
     public ComunicacionSemaforo(){
         consumer();
+    }
+
+    public ComunicacionSemaforo(ComunicacionManager cm) {
+        this();
+        this.cm = cm;
     }
     
     public void consumer(){
@@ -42,6 +47,7 @@ public final class ComunicacionSemaforo {
                 String d = " ";
                 d = new String(delivery.getBody(), StandardCharsets.UTF_8);
                 System.out.println(" [x] Received '" + d + "'");
+                cm.notifyClientSemaforos(d);
             };
             channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
             });
@@ -67,12 +73,4 @@ public final class ComunicacionSemaforo {
 
         }
     }
-
-    /**
-     * JsonObject estado= new JsonObject(); estado.addProperty("estado", "GO");
-     * try { send("paco", estado.toString()); Thread.sleep(5000); send("juan",
-     * "Hola amigo"); } catch (IOException | TimeoutException ex) {
-     * Logger.getLogger(SenderSemaforo.class.getName()).log(Level.SEVERE, null,
-     * ex); }
-     */
 }

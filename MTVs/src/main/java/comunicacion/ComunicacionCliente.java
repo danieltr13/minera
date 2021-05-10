@@ -23,10 +23,12 @@ import java.util.logging.Logger;
  */
 public class ComunicacionCliente {
 
-    private final static String QUEUE_NAME = "semaforoSender";
+    private final static String QUEUE_SEMAFORO = "semaforo_sender_cliente";
+    private final static String QUEUE_VEHICULO = "vehiculo_sender";
+    private final static String QUEUE_CLIENTE = "cliente_consumer";
+    private final static String QUEUE_NOTIFY = "cliente_notify";
 
-    private static final String EXCHANGE_NAME = "topic_logs";
-    private final Gson gson = new Gson();
+     private final Gson gson = new Gson();
 
     public ComunicacionCliente() {
         consumer();
@@ -38,13 +40,13 @@ public class ComunicacionCliente {
             factory.setHost("localhost");
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            channel.queueDeclare(QUEUE_CLIENTE, false, false, false, null);
             DeliverCallback deliverCallback = (String consumerTag, Delivery delivery) -> {
                 String d = " ";
                 d = new String(delivery.getBody(), StandardCharsets.UTF_8);
                 System.out.println(" [x] Received '" + d + "'");
             };
-            channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
+            channel.basicConsume(QUEUE_CLIENTE, true, deliverCallback, consumerTag -> {
             });
         } catch (IOException ex) {
             Logger.getLogger(ComunicacionSemaforo.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,11 +59,11 @@ public class ComunicacionCliente {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            channel.queueDeclare(QUEUE_VEHICULO, false, false, false, null);
             String message = gson.toJson(v);
             //System.out.println(" [x] Sent '" + message + "'");
             //channel.basicPublish("", QUEUE_NAME, null, message.getBytes()); 
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            channel.basicPublish("", QUEUE_VEHICULO, null, message.getBytes());
         } catch (IOException | TimeoutException ex) {
             //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -71,11 +73,25 @@ public class ComunicacionCliente {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            channel.queueDeclare(QUEUE_SEMAFORO, false, false, false, null);
             String message = gson.toJson(v);
             //System.out.println(" [x] Sent '" + message + "'");
             //channel.basicPublish("", QUEUE_NAME, null, message.getBytes()); 
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            channel.basicPublish("", QUEUE_SEMAFORO, null, message.getBytes());
+        } catch (IOException | TimeoutException ex) {
+            //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void sendNotificacion(String v) {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
+        try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
+            channel.queueDeclare(QUEUE_NOTIFY, false, false, false, null);
+            String message = gson.toJson(v);
+            //System.out.println(" [x] Sent '" + message + "'");
+            //channel.basicPublish("", QUEUE_NAME, null, message.getBytes()); 
+            channel.basicPublish("", QUEUE_NOTIFY, null, message.getBytes());
         } catch (IOException | TimeoutException ex) {
             //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
         }

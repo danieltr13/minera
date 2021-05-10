@@ -17,8 +17,8 @@ public class ComunicacionManager {
     private ComunicacionCliente cCliente;
     
     public ComunicacionManager() {
-        //this.cCamionero= new ComunicacionCamionero();
-        //this.cSemaforo= new ComunicacionSemaforo();
+        this.cCamionero= new ComunicacionCamionero();
+        this.cSemaforo= new ComunicacionSemaforo(this);
         this.cVehiculo= new ComunicacionVehiculo(this);
         //this.cCliente= new ComunicacionCliente();
     }
@@ -29,7 +29,11 @@ public class ComunicacionManager {
     }
     
     public void notifyClientSemaforos(String v){
-        //cCliente.sendSemaforos(v);
+        System.out.println(v);
+//        cCliente.sendSemaforos(v);
     }
+    
+   
+    
     
 }

@@ -29,17 +29,17 @@ public class ComunicacionVehiculo {
     private final static String QUEUE_NAME = "vehiculo";
     private final static Reporte reporteC = new Reporte();
     private ComunicacionManager cm;
-    
-    public ComunicacionVehiculo(){
-       consumer();
+
+    public ComunicacionVehiculo() {
+        this.consumer();
     }
-    
-    public ComunicacionVehiculo(ComunicacionManager cm){
-        this.cm=cm;
-        consumer();
+
+    public ComunicacionVehiculo(ComunicacionManager cm) {
+        this.cm = cm;
+        this.consumer();
     }
-    
-    public void consumer(){
+
+    public void consumer() {
         BasicConfigurator.configure();
         try {
             // TODO code application logic here
@@ -50,12 +50,8 @@ public class ComunicacionVehiculo {
             channel.queueDeclare(QUEUE_NAME, false, false, false, null);
             DeliverCallback deliverCallback = (String consumerTag, Delivery delivery) -> {
                 String d = new String(delivery.getBody(), StandardCharsets.UTF_8);
-                //System.out.println(" [x] Received '" + d + "'");
-                /*
-                * Sale error después de un rato al correr 2 o mas vehiculos
-                * System.out.println(reporteC.getJsonVehiculo());
-                * reporteC.addVehiculo(d);
-                */
+                System.out.println(reporteC.getJsonVehiculo());
+                reporteC.addVehiculo(d);
                 cm.notifyClientVehiculo(d);
             };
             channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
@@ -66,6 +62,6 @@ public class ComunicacionVehiculo {
             Logger.getLogger(ComunicacionVehiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //M
 }
