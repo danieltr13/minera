@@ -24,18 +24,22 @@ import org.apache.log4j.BasicConfigurator;
  *
  * @author Alfon
  */
-public class ConsumerVehiculo {
+public class ComunicacionVehiculo {
 
     private final static String QUEUE_NAME = "vehiculo";
     private final static Reporte reporteC = new Reporte();
-
-    /**
-     * @param args the command line arguments
-     * @throws java.io.IOException
-     * @throws java.lang.InterruptedException
-     * @throws java.util.concurrent.TimeoutException
-     */
-    public static void main(String[] args) {
+    private ComunicacionManager cm;
+    
+    public ComunicacionVehiculo(){
+       consumer();
+    }
+    
+    public ComunicacionVehiculo(ComunicacionManager cm){
+        this.cm=cm;
+        consumer();
+    }
+    
+    public void consumer(){
         BasicConfigurator.configure();
         try {
             // TODO code application logic here
@@ -45,19 +49,23 @@ public class ConsumerVehiculo {
             Channel channel = connection.createChannel();
             channel.queueDeclare(QUEUE_NAME, false, false, false, null);
             DeliverCallback deliverCallback = (String consumerTag, Delivery delivery) -> {
-                String d = " ";
-                d = new String(delivery.getBody(), StandardCharsets.UTF_8);
-                System.out.println(" [x] Received '" + d + "'");
-                System.out.println(reporteC.getJsonVehiculo());
-                reporteC.addVehiculo(d);
+                String d = new String(delivery.getBody(), StandardCharsets.UTF_8);
+                //System.out.println(" [x] Received '" + d + "'");
+                /*
+                * Sale error después de un rato al correr 2 o mas vehiculos
+                * System.out.println(reporteC.getJsonVehiculo());
+                * reporteC.addVehiculo(d);
+                */
+                cm.notifyClientVehiculo(d);
             };
             channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
             });
         } catch (IOException ex) {
-            Logger.getLogger(ConsumerVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComunicacionVehiculo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TimeoutException ex) {
-            Logger.getLogger(ConsumerVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComunicacionVehiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    //M
 }

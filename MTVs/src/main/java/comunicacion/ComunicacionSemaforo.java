@@ -5,7 +5,7 @@
  */
 package comunicacion;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -19,20 +19,19 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Alfon
+ * @author MSI GF63
  */
-public class ComunicacionCliente {
+public final class ComunicacionSemaforo {
 
     private final static String QUEUE_NAME = "semaforoSender";
 
     private static final String EXCHANGE_NAME = "topic_logs";
-    private final Gson gson = new Gson();
 
-    public ComunicacionCliente() {
+    public ComunicacionSemaforo(){
         consumer();
     }
-
-    public void consumer() {
+    
+    public void consumer(){
         try {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
@@ -53,31 +52,27 @@ public class ComunicacionCliente {
         }
     }
 
-    public void sendUbications(String v) {
+    public void send(String route, String messages) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-            String message = gson.toJson(v);
-            //System.out.println(" [x] Sent '" + message + "'");
-            //channel.basicPublish("", QUEUE_NAME, null, message.getBytes()); 
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-        } catch (IOException | TimeoutException ex) {
-            //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
+
+            channel.exchangeDeclare(EXCHANGE_NAME, "topic");
+
+            String routingKey = route;
+            String message = messages;
+
+            channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes("UTF-8"));
+            System.out.println(" [x] Sent '" + routingKey + "':'" + message + "'");
+
         }
     }
-    
-    public void sendSemaforos(String v) {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-            String message = gson.toJson(v);
-            //System.out.println(" [x] Sent '" + message + "'");
-            //channel.basicPublish("", QUEUE_NAME, null, message.getBytes()); 
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-        } catch (IOException | TimeoutException ex) {
-            //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+
+    /**
+     * JsonObject estado= new JsonObject(); estado.addProperty("estado", "GO");
+     * try { send("paco", estado.toString()); Thread.sleep(5000); send("juan",
+     * "Hola amigo"); } catch (IOException | TimeoutException ex) {
+     * Logger.getLogger(SenderSemaforo.class.getName()).log(Level.SEVERE, null,
+     * ex); }
+     */
 }

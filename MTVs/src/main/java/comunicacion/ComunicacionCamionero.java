@@ -25,13 +25,13 @@ import org.apache.log4j.BasicConfigurator;
  *
  * @author Alfon
  */
-public class ConsumerCamionero {
+public class ComunicacionCamionero {
 
     private final static String QUEUE_NAME = "camionero";
     private static Gson gson = new Gson();
     private static IReportes reportes = new Reporte();
 
-    public static void main(String[] args) {
+    public ComunicacionCamionero() {
         //esta linea de basic configurator nos ayuda con la config
         // del log4j y que no se quede trabado al guardar solo un valor
         // e intentar guardarlo en la bd
@@ -39,7 +39,7 @@ public class ConsumerCamionero {
         consume();
     }
 
-    private static void consume() {
+    private void consume() {
         try {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
@@ -55,13 +55,13 @@ public class ConsumerCamionero {
             channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
             });
         } catch (IOException ex) {
-            Logger.getLogger(ConsumerCamionero.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComunicacionCamionero.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TimeoutException ex) {
-            Logger.getLogger(ConsumerCamionero.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComunicacionCamionero.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public static void saveRM(String rm) {
+    private void saveRM(String rm) {
         JsonObject json = gson.fromJson(rm, JsonObject.class);
         reportes.agregarRM(json);
     }
