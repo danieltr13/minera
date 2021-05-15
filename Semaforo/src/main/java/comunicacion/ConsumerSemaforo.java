@@ -43,19 +43,11 @@ public class ConsumerSemaforo extends Thread{
             
             channel.exchangeDeclare(EXCHANGE_NAME, "topic");
             String queueName = channel.queueDeclare().getQueue();
-            String msg = "33";
-            if (msg.length() < 1) {
-                System.err.println("Usage: ReceiveLogsTopic [binding_key]...");
-                System.exit(1);
-            }
             channel.queueBind(queueName, EXCHANGE_NAME, id);
-            
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
             
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
-                /*System.out.println(" [x] Received '"
-                        + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");*/
                 System.out.println(message);
                 semaforo.setEstado(this.obtenerEstado(message));
                 semaforo.setCambioExt(true);

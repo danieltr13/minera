@@ -20,16 +20,20 @@ import java.util.logging.Logger;
  */
 public class ComunicacionManager {
 
-    private ComunicacionCamionero cCamionero;
-    private ComunicacionSemaforo cSemaforo;
-    private ComunicacionVehiculo cVehiculo;
-    private ComunicacionCliente cCliente;
+    private ConsumerCamionero cCamionero;
+    private ConsumerSemaforo cSemaforo;
+    private ConsumerVehiculo cVehiculo;
+    private ConsumerCliente cCliente;
+    private SenderSemaforoTyrus semaforoTyrus;
+    private SenderSemaforo semaforo;
 
     public ComunicacionManager() {
-        this.cCamionero = new ComunicacionCamionero();
-        this.cSemaforo = new ComunicacionSemaforo(this);
-        this.cVehiculo = new ComunicacionVehiculo(this);
+        this.cCamionero = new ConsumerCamionero();
+        this.cSemaforo = new ConsumerSemaforo(this);
+        this.cVehiculo = new ConsumerVehiculo(this);
         //this.cCliente= new ComunicacionCliente();
+        this.semaforoTyrus = new SenderSemaforoTyrus();
+        this.semaforo = new SenderSemaforo();
     }
 
     public void notifyClientVehiculo(String v) {
@@ -39,23 +43,14 @@ public class ComunicacionManager {
 
     public void notifyClientSemaforos(String v) {
         System.out.println(v);
-       sendSemaforos(v);
-    }
-    private final static String QUEUE_SEMAFORO = "semaforo_sender_cliente";
-    private final Gson gson = new Gson();
-    public void sendSemaforos(String v) {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
-            channel.queueDeclare(QUEUE_SEMAFORO, false, false, false, null);
-            String message = gson.toJson(v);
-            //System.out.println(" [x] Sent '" + message + "'");
-            //channel.basicPublish("", QUEUE_NAME, null, message.getBytes()); 
-            System.out.println(v);
-            channel.basicPublish("", QUEUE_SEMAFORO, null, v.getBytes());
-        } catch (IOException | TimeoutException ex) {
-            Logger.getLogger(ComunicacionCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.semaforoTyrus.sendSemaforos(v);
     }
 
+    public void sendToSemaforo(String ruta,String mensaje){
+        try {
+            this.semaforo.send(ruta, mensaje);
+        } catch (IOException | TimeoutException ex) {
+            Logger.getLogger(ComunicacionManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }   
 }

@@ -5,11 +5,17 @@
  */
 package test;
 
-import comunicacion.ComunicacionCamionero;
-import comunicacion.ComunicacionCliente;
+import com.google.gson.JsonObject;
+import comunicacion.ConsumerCamionero;
+import comunicacion.ConsumerCliente;
 import comunicacion.ComunicacionManager;
-import comunicacion.ComunicacionSemaforo;
-import comunicacion.ComunicacionVehiculo;
+import comunicacion.ConsumerSemaforo;
+import comunicacion.ConsumerVehiculo;
+import comunicacion.SenderSemaforo;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class test {
 
@@ -19,7 +25,15 @@ public class test {
         //ComunicacionCamionero cc= new ComunicacionCamionero();       
         //ComunicacionManager cm= new ComunicacionManager();
         //ComunicacionVehiculo cv = new ComunicacionVehiculo();
-        ComunicacionCliente cc= new ComunicacionCliente();
-       // cc.sendSemaforos("Hola desde el semaforo");
+        ConsumerCliente cc= new ConsumerCliente();
+        SenderSemaforo senderS= new SenderSemaforo();
+        try {
+            JsonObject json= new JsonObject();
+            json.addProperty("estado", "STOP");
+            senderS.send("semaforo1",json.toString());
+            // cc.sendSemaforos("Hola desde el semaforo");
+        } catch (IOException | TimeoutException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
