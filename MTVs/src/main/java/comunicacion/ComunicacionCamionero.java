@@ -5,8 +5,8 @@
  */
 package comunicacion;
 
-import Reportes.IReportes;
-import Reportes.Reporte;
+import reportes.IReportes;
+import reportes.Reporte;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.rabbitmq.client.Channel;
