@@ -9,7 +9,8 @@ and open the template in the editor.
         <title>Reportes</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="estilo/estilos.css">
+        <script src="reportes.js"></script>
+        <link rel="stylesheet" href="reportes.css">
     </head>
     <body>
         <div class="navegacion">
@@ -18,6 +19,29 @@ and open the template in the editor.
             <a href="reportes.html">Reportes</a>
             <a href="notificar_materiales.html">Notificar Materiales</a>
         </div>
-        <div>Reportes</div>
+        <h1>Reportes</h1>
+        <select name="select" id="cbxReporte">
+            <option value="Materiales" selected>Materiales</option>
+            <option value="Congestiones">Congestiones</option>
+        </select>
+        <input type="button" value="Buscar" id="btn">
+        <main id="materiales">
+            <script>
+                var btn = document.getElementById("btn");
+                btn.onclick = function () {
+                    
+                    let e = document.getElementById("cbxReporte");
+                    let tipoReporte = e.value;
+                    console.log(tipoReporte);
+                    if (tipoReporte === "Materiales") {
+                        reportesMaterials();
+                    } else if (tipoReporte === "Congestiones") {
+                        reportesCongestiones();
+                    }
+                }
+
+
+            </script>
+        </main>
     </body>
 </html>
