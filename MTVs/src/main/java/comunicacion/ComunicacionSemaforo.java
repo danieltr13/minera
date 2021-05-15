@@ -27,13 +27,9 @@ public final class ComunicacionSemaforo {
     private ComunicacionManager cm;
     private static final String EXCHANGE_NAME = "topic_logs";
     
-    public ComunicacionSemaforo(){
-        consumer();
-    }
-
     public ComunicacionSemaforo(ComunicacionManager cm) {
-        this();
         this.cm = cm;
+        consumer();
     }
     
     public void consumer(){
@@ -46,7 +42,7 @@ public final class ComunicacionSemaforo {
             DeliverCallback deliverCallback = (String consumerTag, Delivery delivery) -> {
                 String d = " ";
                 d = new String(delivery.getBody(), StandardCharsets.UTF_8);
-                System.out.println(" [x] Received '" + d + "'");
+                //System.out.println(" [x] Received '" + d + "'");
                 cm.notifyClientSemaforos(d);
             };
             channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {

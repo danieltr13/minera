@@ -1,11 +1,11 @@
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\control\ControlReporteM.java
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\control\ControlReporteC.java
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\dao\RepositoryRC.java
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\entities\ReporteCongestion.java
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\entities\Reporte.java
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\control\BaseControl.java
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\dao\BaseRepository.java
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\control\FNegocio.java
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\dao\RepositoryRM.java
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\control\IDBC.java
-C:\Users\Alfon\Documents\NetbeansProjects\AccesoDatos\src\main\java\minera\entities\ReporteMaterial.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\control\IDBC.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\dao\BaseRepository.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\entities\Reporte.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\control\BaseControl.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\dao\RepositoryRC.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\control\ControlReporteC.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\control\FNegocio.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\dao\RepositoryRM.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\entities\ReporteMaterial.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\control\ControlReporteM.java
+C:\Users\MSI GF63\Documents\ITSON\Semestre 6\Sistemas Distribuidos\Minera\minera\AccesoDatos\src\main\java\minera\entities\ReporteCongestion.java

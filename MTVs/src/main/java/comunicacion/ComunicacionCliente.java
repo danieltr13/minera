@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class ComunicacionCliente {
 
-    private final static String QUEUE_SEMAFORO = "semaforo_sender_cliente";
+
     private final static String QUEUE_VEHICULO = "vehiculo_sender";
     private final static String QUEUE_CLIENTE = "cliente_consumer";
     private final static String QUEUE_NOTIFY = "cliente_notify";
@@ -69,19 +69,7 @@ public class ComunicacionCliente {
         }
     }
     
-    public void sendSemaforos(String v) {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
-            channel.queueDeclare(QUEUE_SEMAFORO, false, false, false, null);
-            String message = gson.toJson(v);
-            //System.out.println(" [x] Sent '" + message + "'");
-            //channel.basicPublish("", QUEUE_NAME, null, message.getBytes()); 
-            channel.basicPublish("", QUEUE_SEMAFORO, null, message.getBytes());
-        } catch (IOException | TimeoutException ex) {
-            //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+ 
     
     public void sendNotificacion(String v) {
         ConnectionFactory factory = new ConnectionFactory();

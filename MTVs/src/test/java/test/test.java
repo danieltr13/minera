@@ -6,6 +6,7 @@
 package test;
 
 import comunicacion.ComunicacionCamionero;
+import comunicacion.ComunicacionCliente;
 import comunicacion.ComunicacionManager;
 import comunicacion.ComunicacionSemaforo;
 import comunicacion.ComunicacionVehiculo;
@@ -16,8 +17,9 @@ public class test {
         //ComunicacionSemaforo cs = new ComunicacionSemaforo();
         //cs.consumer();
         //ComunicacionCamionero cc= new ComunicacionCamionero();       
-        ComunicacionManager cm= new ComunicacionManager();
+        //ComunicacionManager cm= new ComunicacionManager();
         //ComunicacionVehiculo cv = new ComunicacionVehiculo();
-        
+        ComunicacionCliente cc= new ComunicacionCliente();
+       // cc.sendSemaforos("Hola desde el semaforo");
     }
 }
