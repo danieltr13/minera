@@ -9,15 +9,74 @@ and open the template in the editor.
         <title>Semáforos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="estilo/estilos.css">
+        <link rel="stylesheet" href="estilos.css">
+        <script>
+            var ws = null;
+            //funcion que maneja el click del botón enviar
+            function click() {
+                var txtMsjs = document.getElementById("txtMsjs");
+                var txtMsj = document.getElementById("txtMsj");
+                let e = document.getElementById("cbxEstados");
+                let tipoReporte = e.value;
+                var estado;
+                if (tipoReporte === "GO") {
+                    estado="GO";
+                } else if (tipoReporte === "CAUTION") {
+                    estado="CAUTION";
+                }
+                else{
+                    estado="STOP";
+                }
+                txtMsjs.value += "\n" + "YO: " + txtMsj.value + ","+estado;
+                //aqui se manda el mensaje de la caja de texto al websocket
+                ws.send(txtMsj.value+ ","+estado);
+            }
+            //al cargarse la página se ejecuta esta función
+            window.onload = function () {
+                var txtMsjs = document.getElementById("txtMsjs");
+                var btn = document.getElementById("btn");
+                // se asigna el evento del click
+                btn.onclick = click;
+                //hace la conexión al web socket
+                ws = new WebSocket
+                        ("ws://localhost:8080/Cliente/websocketendpoint");
+                //la función que se ejecuta al abrirse la conexión
+                ws.onopen = function () {
+                    //se envía este mensaje al websocket
+                    ws.send("Ya me conecte");
+                    txtMsjs.value = "Ya me conecte";
+                };
+                //se asigna y define la función a ejecutarse cada que llegue un mensaje desde el websocket
+                ws.onmessage = function (evt) {
+                    var received_msg = evt.data;
+                    var txtMsjs = document.getElementById("txtMsjs");
+                    txtMsjs.value += "\n" + received_msg;
+                };
+
+                ws.onclose = function () {
+
+                    alert("Connection is closed...");
+                };
+            }
+        </script> 
     </head>
     <body>
         <div class="navegacion">
+            <a href="index.html">Inicio</a>
             <a href="ubicaciones.html">Ubicaciones</a>
             <a href="semaforos.html">Semáforos</a>
             <a href="reportes.html">Reportes</a>
-            <a href="notificar_materiales.html">Notificar Materiales</a>
         </div>
-        <div>Semáforos</div>
+        <h1>Semáforos</h1>
+        Semáforo: <input type="text" id="txtMsj" />
+        <select name="select" id="cbxEstados">
+            <option value="GO" selected>Go</option>
+            <option value="CAUTION">Caution</option>
+            <option value="STOP">Stop</option>
+        </select>
+        <input type="button" value="Send" id="btn"/>
+        <br/>        
+        Mensajes:
+        <textarea id="txtMsjs"></textarea>  
     </body>
 </html>

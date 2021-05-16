@@ -12,6 +12,8 @@ import comunicacion.ComunicacionManager;
 import comunicacion.ConsumerSemaforo;
 import comunicacion.ConsumerVehiculo;
 import comunicacion.SenderSemaforo;
+import comunicacion.SenderSemaforoTyrus;
+import comunicacion.SenderVehiculoTyrus;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
@@ -25,15 +27,13 @@ public class test {
         //ComunicacionCamionero cc= new ComunicacionCamionero();       
         //ComunicacionManager cm= new ComunicacionManager();
         //ComunicacionVehiculo cv = new ComunicacionVehiculo();
-        ConsumerCliente cc= new ConsumerCliente();
-        SenderSemaforo senderS= new SenderSemaforo();
-        try {
-            JsonObject json= new JsonObject();
-            json.addProperty("estado", "STOP");
-            senderS.send("semaforo1",json.toString());
-            // cc.sendSemaforos("Hola desde el semaforo");
-        } catch (IOException | TimeoutException ex) {
-            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //ConsumerCliente cc= new ConsumerCliente();
+        
+       /// SenderSemaforoTyrus senderS= new SenderSemaforoTyrus();
+        
+       // senderS.sendSemaforos("Hola desde mtvs");
+        // cc.sendSemaforos("Hola desde el semaforo");
+        SenderVehiculoTyrus svt = new SenderVehiculoTyrus();
+        //svt.sendUbications("Hola desde mtvs soy un vehiculo");
     }
 }

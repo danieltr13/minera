@@ -1,0 +1,34 @@
+body{
+    background-color: #b2b8bdbe;
+}
+
+.navegacion {
+    background-color: white;
+    overflow: hidden;  
+    padding: 10px;
+}
+
+.navegacion a {
+    float: left;
+    color: #012749;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.navegacion img {
+    width: 70px;
+    height: 70px;
+}
+
+.navegacion a:hover {   
+    background-color:black;
+    color:white;
+}
+
+.navegacion a.active {
+    background-color: aliceblue;
+    color: black;
+}
+

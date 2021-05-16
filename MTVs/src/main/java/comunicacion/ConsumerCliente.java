@@ -44,13 +44,13 @@ public class ConsumerCliente {
                 String d = " ";
                 d = new String(delivery.getBody(), StandardCharsets.UTF_8);
                 System.out.println(" [x] Received '" + d + "'");
-                try {
+                /*try {
                     JsonObject jsonEstado= stringToJson(d);
                     this.senderSemaforo.send(jsonEstado.get("route").getAsString(),
                             jsonEstado.get("estado").getAsString() );
                 } catch (IOException | TimeoutException ex) {
                     Logger.getLogger(ConsumerCliente.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }*/
             };
             channel.basicConsume(QUEUE_CLIENTE, true, deliverCallback, consumerTag -> {
             });

@@ -19,6 +19,9 @@ public class SenderSemaforo {
 
     private static final String EXCHANGE_NAME = "topic_logs";
 
+    public SenderSemaforo() {
+    }
+    
     public void send(String route, String messages) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");

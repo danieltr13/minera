@@ -25,20 +25,22 @@ public class ComunicacionManager {
     private ConsumerVehiculo cVehiculo;
     private ConsumerCliente cCliente;
     private SenderSemaforoTyrus semaforoTyrus;
+    private SenderVehiculoTyrus vehiculoTyrus;
     private SenderSemaforo semaforo;
 
     public ComunicacionManager() {
         this.cCamionero = new ConsumerCamionero();
         this.cSemaforo = new ConsumerSemaforo(this);
         this.cVehiculo = new ConsumerVehiculo(this);
-        //this.cCliente= new ComunicacionCliente();
+        this.cCliente= new ConsumerCliente();
         this.semaforoTyrus = new SenderSemaforoTyrus();
         this.semaforo = new SenderSemaforo();
+        this.vehiculoTyrus= new SenderVehiculoTyrus();
     }
 
     public void notifyClientVehiculo(String v) {
         System.out.println(v);
-        //cCliente.sendUbications(v);
+        vehiculoTyrus.sendUbications(v);
     }
 
     public void notifyClientSemaforos(String v) {
