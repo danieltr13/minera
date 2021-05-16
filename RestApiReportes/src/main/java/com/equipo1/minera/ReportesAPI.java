@@ -5,8 +5,8 @@
  */
 package com.equipo1.minera;
 
- import minera.control.IDBC;
- import org.springframework.beans.factory.annotation.Autowired;
+import minera.control.IDBC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,19 +21,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController()
 @RequestMapping("/reportes/")
 public class ReportesAPI {
-    
-    @Autowired
+
     private IDBC facade;
-    
+
+    @Autowired
+    public ReportesAPI(IDBC facade) {
+        this.facade = facade;
+    }
+
     @GetMapping("/materiales")
     @CrossOrigin(origins = "http://localhost:8080")
-     public ResponseEntity<?> reporteMateriales() {
+    public ResponseEntity<?> reporteMateriales() {
         return new ResponseEntity<>(facade.buscarTodasRM(), HttpStatus.OK);
     }
-    
+
     @GetMapping("/congestiones")
     @CrossOrigin(origins = "http://localhost:8080")
-     public ResponseEntity<?> reporteCongestiones() {
+    public ResponseEntity<?> reporteCongestiones() {
         return new ResponseEntity<>(facade.buscarTodasRC(), HttpStatus.OK);
     }
 

@@ -26,10 +26,9 @@ public class SenderNotificationTyrus {
         factory.setHost("localhost");
         try ( Connection connection = factory.newConnection();  Channel channel = connection.createChannel()) {
             channel.queueDeclare(QUEUE_NOTIFY, false, false, false, null);
-            String message = gson.toJson(v);
-            //System.out.println(" [x] Sent '" + message + "'");
-            //channel.basicPublish("", QUEUE_NAME, null, message.getBytes()); 
-            channel.basicPublish("", QUEUE_NOTIFY, null, message.getBytes());
+//            String message = gson.toJson(v);
+ 
+            channel.basicPublish("", QUEUE_NOTIFY, null, v.getBytes());
         } catch (IOException | TimeoutException ex) {
             //Logger.getLogger(Send.class.getName()).log(Level.SEVERE, null, ex);
         }

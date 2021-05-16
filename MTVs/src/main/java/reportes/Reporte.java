@@ -8,6 +8,7 @@ package reportes;
  
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import comunicacion.SenderNotificationTyrus;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Reporte implements IReportes {
     private final Gson gson;
     private List<String> jsonVehiculo;
     private String key;
+    SenderNotificationTyrus senderNotificationTyrus;
     private final HashMap<String, Integer> jsonCongestion;
 
     public Reporte() {
@@ -34,6 +36,7 @@ public class Reporte implements IReportes {
         this.jsonCongestion = new HashMap<>();
         this.fNegocio = new FNegocio();
         this.gson = new Gson();
+        this.senderNotificationTyrus= new SenderNotificationTyrus();
     }
 
     public boolean addVehiculo(String vehiculo) {
@@ -77,7 +80,9 @@ public class Reporte implements IReportes {
             stringBuilder.append(llave + ",");
         });
         if (fNegocio.buscarComoRC(stringBuilder.toString()).isEmpty()) {
-            ReporteCongestion rc = new ReporteCongestion("Trafico", jsonCongestion.get(key), "Atracon de autos", stringBuilder.toString());
+            ReporteCongestion rc = new ReporteCongestion("Trafico", jsonCongestion.get(key), "Atracon de autos", 
+                    stringBuilder.toString());
+            this.senderNotificationTyrus.sendNotificacion("Se ha creado una congestión en: "+rc.getUbicacion());
             fNegocio.guardarRC(rc);
             this.clearVehiculosCongestion();
             key = "";

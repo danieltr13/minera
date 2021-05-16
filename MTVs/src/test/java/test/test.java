@@ -11,6 +11,7 @@ import comunicacion.ConsumerCliente;
 import comunicacion.ComunicacionManager;
 import comunicacion.ConsumerSemaforo;
 import comunicacion.ConsumerVehiculo;
+import comunicacion.SenderNotificationTyrus;
 import comunicacion.SenderSemaforo;
 import comunicacion.SenderSemaforoTyrus;
 import comunicacion.SenderVehiculoTyrus;
@@ -33,7 +34,9 @@ public class test {
         
        // senderS.sendSemaforos("Hola desde mtvs");
         // cc.sendSemaforos("Hola desde el semaforo");
-        SenderVehiculoTyrus svt = new SenderVehiculoTyrus();
+//        SenderVehiculoTyrus svt = new SenderVehiculoTyrus();
+         SenderNotificationTyrus senderNotificationTyrus= new SenderNotificationTyrus();
+         senderNotificationTyrus.sendNotificacion("Muy buenas aquí vegueta 777 comentando");
         //svt.sendUbications("Hola desde mtvs soy un vehiculo");
     }
 }

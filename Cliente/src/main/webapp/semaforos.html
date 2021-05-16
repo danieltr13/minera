@@ -10,6 +10,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="estilos.css">
+        <script src="notificacion.js"></script>
         <script>
             var ws = null;
             //funcion que maneja el click del botón enviar
@@ -20,16 +21,15 @@ and open the template in the editor.
                 let tipoReporte = e.value;
                 var estado;
                 if (tipoReporte === "GO") {
-                    estado="GO";
+                    estado = "GO";
                 } else if (tipoReporte === "CAUTION") {
-                    estado="CAUTION";
+                    estado = "CAUTION";
+                } else {
+                    estado = "STOP";
                 }
-                else{
-                    estado="STOP";
-                }
-                txtMsjs.value += "\n" + "YO: " + txtMsj.value + ","+estado;
+                txtMsjs.value += "\n" + "YO: " + txtMsj.value + "," + estado;
                 //aqui se manda el mensaje de la caja de texto al websocket
-                ws.send(txtMsj.value+ ","+estado);
+                ws.send(txtMsj.value + "," + estado);
             }
             //al cargarse la página se ejecuta esta función
             window.onload = function () {
