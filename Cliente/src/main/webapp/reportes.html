@@ -9,55 +9,34 @@ and open the template in the editor.
         <title>Reportes</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="reportes.js"></script>
         <script src="notificacion.js"></script>
         <link rel="stylesheet" href="reportes.css">
         <link rel="stylesheet" href="estilos.css">
     </head>
     <body>
-        <div class="navegacion">
-            <a href="index.html">Inicio</a>
-            <a href="ubicaciones.html">Ubicaciones</a>
-            <a href="semaforos.html">Semáforos</a>
-            <a href="reportes.html">Reportes</a>
-        </div>
-        <h1>Reportes</h1>
-        <select name="select" id="cbxReporte">
-            <option value="Materiales" selected>Materiales</option>
-            <option value="Congestiones">Congestiones</option>
-        </select>
-        <input type="button" value="Buscar" id="btn">
-        <br/><br/>
-        <input type="text" placeholder="Usuario" id="user"/>
-        <input type="text" placeholder="Contraseña" id="password"/>
-        <input type="button" value="Ingresar" id="btnUser">
+        <main>
+            <div class="navegacion">
+                <a href="index.html">Inicio</a>
+                <a href="ubicaciones.html">Ubicaciones</a>
+                <a href="semaforos.html">Semáforos</a>
+                <a href="reportes.html">Reportes</a>
+            </div>
+            <h1>Reportes</h1>
+            <select name="select" id="cbxReporte">
+                <option value="Materiales" selected>Materiales</option>
+                <option value="Congestiones">Congestiones</option>
+            </select>
+            <input type="button" value="Buscar" id="btnBuscar"/>
+            <br/><br/>
+            <input type="text" placeholder="Usuario" id="user"/>
+            <input type="text" placeholder="Contraseña" id="password"/>
+            <input type="button" value="Ingresar" id="btnUser"/>
+            <section id="materiales">
 
-
-        <main id="materiales">
-            <script>
-                var btn = document.getElementById("btn");
-                btn.onclick = () => {
-                    let e = document.getElementById("cbxReporte");
-                    let tipoReporte = e.value;
-                    console.log(tipoReporte);
-                    if (tipoReporte === "Materiales") {
-                        reportesMaterials();
-                    } else if (tipoReporte === "Congestiones") {
-                        reportesCongestiones();
-                    }
-                }
-
-                window.onload = function () {
-
-                    var btnUser = document.getElementById("btnUser");
-                    btnUser.onclick = function () {
-                        var user = document.getElementById("user");
-                        var password = document.getElementById("password");
-                        iniciarSesion(user.value, password.value);
-                    };
-                };
-
-            </script>
+            </section>
+            <div>
+                <script src="reportes.js"></script>
+            </div>
         </main>
     </body>
 </html>

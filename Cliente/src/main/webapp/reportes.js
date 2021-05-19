@@ -5,6 +5,27 @@
  */
 var tkn = "";
 
+
+window.onload = function () {
+    var btn = document.getElementById("btnBuscar");
+    btn.onclick = () => {
+        let e = document.getElementById("cbxReporte");
+        let tipoReporte = e.value;
+        console.log(tipoReporte);
+        if (tipoReporte === "Materiales") {
+            reportesMaterials();
+        } else if (tipoReporte === "Congestiones") {
+            reportesCongestiones();
+        }
+    };
+    var btnUser = document.getElementById("btnUser");
+    btnUser.onclick = () => {
+        var user = document.getElementById("user");
+        var password = document.getElementById("password");
+        iniciarSesion(user.value, password.value);
+    };
+};
+
 async function reportesMaterials() {
     try {
         let res = await fetch("http://localhost:8888/reportes/materiales")
@@ -39,17 +60,17 @@ async function iniciarSesion(name, password) {
         console.log(JSON.parse(JSON.stringify(data)))
         let res = await fetch("http://localhost:8888/usuario/validar", {
             method: 'POST',
-            body:  JSON.stringify(data), // data can be `string` or {object}!
+            body: JSON.stringify(data), // data can be `string` or {object}!
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8'
             }
         })
-                .then((res) => res.json()).then(json=>{
-                    tkn=json;
-                    console.log(tkn)
+                .then((res) => res.json()).then(json => {
+            tkn = JSON.stringify(json);
+            console.log(tkn)
         });
         ;
-        
+
     } catch (error) {
         console.log(error);
     }
