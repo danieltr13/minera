@@ -8,14 +8,23 @@ package test;
 import minera.control.FNegocio;
 import minera.control.IDBC;
 import minera.entities.ReporteMaterial;
+import minera.entities.Usuario;
 
 /**
  *
  * @author Alfon
  */
 public class Test {
+    private static IDBC facade = new FNegocio();
     public static void main(String[] args) {
-        IDBC facade = new FNegocio();
-        facade.guardarRM(new ReporteMaterial("diamantes", 5f, "frente de bocho"));
+        
+        System.out.println(validaUsuario("juan"));
+        
+    }
+    
+    public static Usuario validaUsuario(String username) {
+        Usuario user = facade.buscarPorNombre(username).get(0);
+        System.out.println("usuario "+ user.toString());
+        return user;
     }
 }

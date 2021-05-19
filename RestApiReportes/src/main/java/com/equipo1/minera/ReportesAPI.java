@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReportesAPI {
 
     private IDBC facade;
+    @Autowired
+    private ValidarUsuario validarUser;
 
     @Autowired
     public ReportesAPI(IDBC facade) {

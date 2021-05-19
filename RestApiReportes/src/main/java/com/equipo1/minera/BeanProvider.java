@@ -23,5 +23,11 @@ public class BeanProvider {
     public IDBC fNegocio() {
         return new FNegocio();
     }
+    
+    @Bean
+    @Scope("singleton")
+    public ValidarUsuario validarUsuario() {
+        return new ValidarUsuario();
+    }
 
 }

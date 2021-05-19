@@ -5,6 +5,7 @@
     <class>minera.entities.ReporteMaterial</class>
     <class>minera.entities.Reporte</class>
     <class>minera.entities.ReporteCongestion</class>
+    <class>minera.entities.Usuario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mtvs?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

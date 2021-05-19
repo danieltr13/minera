@@ -9,6 +9,7 @@ import minera.entities.ReporteCongestion;
 import minera.entities.ReporteMaterial;
 import java.util.ArrayList;
 import java.util.List;
+import minera.entities.Usuario;
 
 /**
  *
@@ -18,10 +19,11 @@ public class FNegocio implements IDBC {
 
     private final ControlReporteC reporteC;
     private final ControlReporteM reporteM;
-
+    private final ControlUsuario controlUser;
     public FNegocio() {
          this.reporteC = ControlReporteC.getControlReporteC();
          this.reporteM = ControlReporteM.getControlReporteM();
+         this.controlUser= ControlUsuario.getInstance();
     }
 
     @Override
@@ -82,6 +84,21 @@ public class FNegocio implements IDBC {
     @Override
     public List<ReporteCongestion> buscarComoRC(String busqueda) {
         return this.reporteC.buscarComo(busqueda);
+    }
+
+    @Override
+    public boolean guardarUsuario(Usuario usuario) {
+        return this.controlUser.guardar(usuario);
+    }
+
+    @Override
+    public Usuario buscarPorID(long id) {
+        return this.controlUser.buscarporID(id);
+    }
+
+    @Override
+    public List<Usuario> buscarPorNombre(String nombre) {
+        return this.controlUser.buscarComo(nombre);
     }
 
 }

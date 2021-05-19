@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var tkn = "";
+
 async function reportesMaterials() {
     try {
         let res = await fetch("http://localhost:8888/reportes/materiales")
@@ -30,6 +32,31 @@ async function reportesCongestiones() {
     }
 }
 ;
+async function iniciarSesion(name, password) {
+    try {
+        var data = {name: name,
+            password: password};
+        console.log(JSON.parse(JSON.stringify(data)))
+        let res = await fetch("http://localhost:8888/usuario/validar", {
+            method: 'POST',
+            body:  JSON.stringify(data), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8'
+            }
+        })
+                .then((res) => res.json()).then(json=>{
+                    tkn=json;
+                    console.log(tkn)
+        });
+        ;
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+;
+
+
 
 async function tablaCongestiones(reports) {
     let tablaEncabezado = `
@@ -97,4 +124,7 @@ function borrar() {
     while (dom.hasChildNodes())
         dom.removeChild(dom.firstChild);
 }
+
+
+
 

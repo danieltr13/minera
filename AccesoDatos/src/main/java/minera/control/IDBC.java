@@ -9,6 +9,7 @@ import minera.entities.ReporteCongestion;
 import minera.entities.ReporteMaterial;
 import java.util.ArrayList;
 import java.util.List;
+import minera.entities.Usuario;
 
 /**
  *
@@ -29,4 +30,9 @@ public interface IDBC {
     public abstract ArrayList<ReporteCongestion> buscarTodasRC();
     public abstract boolean eliminarRC(long id);
     public abstract List<ReporteCongestion> buscarComoRC(String busqueda);
+    //usuario
+    public abstract boolean guardarUsuario(Usuario usuario);
+    public abstract Usuario buscarPorID(long id);
+    public abstract List<Usuario> buscarPorNombre(String nombre);
+    
 }

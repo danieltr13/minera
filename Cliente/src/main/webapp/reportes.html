@@ -27,20 +27,36 @@ and open the template in the editor.
             <option value="Congestiones">Congestiones</option>
         </select>
         <input type="button" value="Buscar" id="btn">
+        <br/><br/>
+        <input type="text" placeholder="Usuario" id="user"/>
+        <input type="text" placeholder="Contraseña" id="password"/>
+        <input type="button" value="Ingresar" id="btnUser">
+
+
         <main id="materiales">
             <script>
-                    var btn = document.getElementById("btn");
-                    btn.onclick = function () {
-
-                        let e = document.getElementById("cbxReporte");
-                        let tipoReporte = e.value;
-                        console.log(tipoReporte);
-                        if (tipoReporte === "Materiales") {
-                            reportesMaterials();
-                        } else if (tipoReporte === "Congestiones") {
-                            reportesCongestiones();
-                        }
+                var btn = document.getElementById("btn");
+                btn.onclick = () => {
+                    let e = document.getElementById("cbxReporte");
+                    let tipoReporte = e.value;
+                    console.log(tipoReporte);
+                    if (tipoReporte === "Materiales") {
+                        reportesMaterials();
+                    } else if (tipoReporte === "Congestiones") {
+                        reportesCongestiones();
                     }
+                }
+
+                window.onload = function () {
+
+                    var btnUser = document.getElementById("btnUser");
+                    btnUser.onclick = function () {
+                        var user = document.getElementById("user");
+                        var password = document.getElementById("password");
+                        iniciarSesion(user.value, password.value);
+                    };
+                };
+
             </script>
         </main>
     </body>
