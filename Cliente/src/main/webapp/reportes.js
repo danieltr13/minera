@@ -27,32 +27,45 @@ window.onload = function () {
 };
 
 async function reportesMaterials() {
-    try {
-        let res = await fetch("http://localhost:8888/reportes/materiales")
-                .then(res => res.json())
-                .then(reports => {
-                    console.log(reports)
-                    tablaMateriales(reports)
-                })
-    } catch (error) {
-        console.log(error);
+    if (tkn === "") {
+        alert("Inicie sesión...");
+    } else if (tkn === "No se encontró el usuario") {
+        alert("Inicie sesión...");
+    } else if (tkn !== "" && tkn !== "No se encontró el usuario") {
+        try {
+            let res = await fetch("http://localhost:8888/reportes/materiales")
+                    .then(res => res.json())
+                    .then(reports => {
+                        console.log(reports)
+                        tablaMateriales(reports)
+                    })
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 ;
 
 async function reportesCongestiones() {
-    try {
-        let res = await fetch("http://localhost:8888/reportes/congestiones")
-                .then(res => res.json())
-                .then(reports => {
-                    console.log(reports)
-                    tablaCongestiones(reports)
-                })
-    } catch (error) {
-        console.log(error);
+    if (tkn === "") {
+        alert("Inicie sesión...");
+    } else if (tkn === "No se encontró el usuario") {
+        alert("Inicie sesión...");
+    } else if (tkn !== "" && tkn !== "No se encontró el usuario") {
+        try {
+            let res = await fetch("http://localhost:8888/reportes/congestiones")
+                    .then(res => res.json())
+                    .then(reports => {
+                        console.log(reports)
+                        tablaCongestiones(reports)
+                    })
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 ;
+
 async function iniciarSesion(name, password) {
     try {
         var data = {name: name,

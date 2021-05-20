@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class ValidarUsuario {
 
-    private String tkn = null;
+    static StringBuffer tkns = new StringBuffer();
 
     @Autowired
     private IDBC facade;
@@ -42,7 +42,7 @@ public class ValidarUsuario {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             token = JWT.create().withIssuer("auth0").
                     withClaim("usuario", user).sign(algorithm);
-            this.tkn = token;
+            tkns.append(token);
             verificarToken(token);
         } catch (JWTCreationException e) {
             System.err.println(e.getMessage());

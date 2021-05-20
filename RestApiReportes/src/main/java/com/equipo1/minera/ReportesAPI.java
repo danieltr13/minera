@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController()
 @RequestMapping("/reportes/")
 public class ReportesAPI {
-
+    
     private IDBC facade;
     @Autowired
     private ValidarUsuario validarUser;
@@ -30,7 +30,9 @@ public class ReportesAPI {
     public ReportesAPI(IDBC facade) {
         this.facade = facade;
     }
-
+    
+    
+    
     @GetMapping("/materiales")
     @CrossOrigin(origins = "http://localhost:8080")
     public ResponseEntity<?> reporteMateriales() {
