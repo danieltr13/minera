@@ -23,23 +23,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/usuario/")
 public class UsuariosAPI {
-    
+
     @Autowired
     private ValidarUsuario validarUser;
-        
+
     @PostMapping("/validar")
     @CrossOrigin(origins = "http://localhost:8080")
-    public ResponseEntity<?>iniciarSesion(@RequestBody Usuario usuario) {
-    
-        String tkn=this.validarUser.validaUsuario(usuario.getName());
-        JsonObject json= new JsonObject();
+    public ResponseEntity<?> iniciarSesion(@RequestBody Usuario usuario) {
+
+        String tkn = this.validarUser.validaUsuario(usuario);
+        JsonObject json = new JsonObject();
         json.addProperty("token", tkn);
-        if (tkn!=null) {
-            return new ResponseEntity<>(json.toString(),HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>("No se encontró el usuario",HttpStatus.UNAUTHORIZED);
+        if (tkn != null) {
+            return new ResponseEntity<>(json.toString(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No se encontró el usuario", HttpStatus.UNAUTHORIZED);
         }
     }
-    
-    
 }

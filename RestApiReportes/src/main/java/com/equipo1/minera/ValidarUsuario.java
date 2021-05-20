@@ -22,16 +22,20 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Alfon
  */
 public class ValidarUsuario {
-    private String tkn=null;
-    
+
+    private String tkn = null;
+
     @Autowired
-    private IDBC facade ; 
-    
-    public String validaUsuario(String username) {
-        Usuario user = facade.buscarPorNombre(username).get(0);
-        return crearToken(user.getName());
+    private IDBC facade;
+
+    public String validaUsuario(Usuario usuario) {
+        Usuario user = facade.buscarPorNombre(usuario.getName()).get(0);
+        if (usuario.getPassword().equals(user.getPassword()) && usuario.getName().equals(user.getName())) {
+            return crearToken(user.getName());
+        }
+        return "usuario no encontrado";
     }
-    
+
     private String crearToken(String user) {
         String token = null;
         try {
@@ -45,7 +49,7 @@ public class ValidarUsuario {
         }
         return token;
     }
-    
+
     private void verificarToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
@@ -57,7 +61,7 @@ public class ValidarUsuario {
             System.err.println(e.getMessage());
         }
     }
-    
+
     public static String getUsername(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
