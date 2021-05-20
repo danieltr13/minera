@@ -5,12 +5,15 @@
  */
 package com.equipo1.minera;
 
+import com.google.gson.JsonObject;
 import minera.control.IDBC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,8 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController()
 @RequestMapping("/reportes/")
 public class ReportesAPI {
-    
+
     private IDBC facade;
+
     @Autowired
     private ValidarUsuario validarUser;
 
@@ -30,19 +34,31 @@ public class ReportesAPI {
     public ReportesAPI(IDBC facade) {
         this.facade = facade;
     }
-    
-    
-    
-    @GetMapping("/materiales")
+
+    @PostMapping("/materiales")
     @CrossOrigin(origins = "http://localhost:8080")
-    public ResponseEntity<?> reporteMateriales() {
-        return new ResponseEntity<>(facade.buscarTodasRM(), HttpStatus.OK);
+    public ResponseEntity<?> reporteMateriales(@RequestBody String tkn) {
+        int index = ValidarUsuario.tkns.indexOf(tkn);
+        JsonObject noUser = new JsonObject();
+        noUser.addProperty("no hay token", index);
+        if (index == -1) {
+            return new ResponseEntity<>(noUser.toString(), HttpStatus.UNAUTHORIZED);
+        } else {
+            return new ResponseEntity<>(facade.buscarTodasRM(), HttpStatus.OK);
+        }
     }
 
-    @GetMapping("/congestiones")
+    @PostMapping("/congestiones")
     @CrossOrigin(origins = "http://localhost:8080")
-    public ResponseEntity<?> reporteCongestiones() {
-        return new ResponseEntity<>(facade.buscarTodasRC(), HttpStatus.OK);
+    public ResponseEntity<?> reporteCongestiones(@RequestBody String tkn) {
+        int index = ValidarUsuario.tkns.indexOf(tkn);
+        JsonObject noUser = new JsonObject();
+        noUser.addProperty("no hay token", index);
+        if (index == -1) {
+            return new ResponseEntity<>(noUser.toString(), HttpStatus.UNAUTHORIZED);
+        } else {
+            return new ResponseEntity<>(facade.buscarTodasRC(), HttpStatus.OK);
+        }
     }
 
 }

@@ -33,12 +33,21 @@ async function reportesMaterials() {
         alert("Inicie sesión...");
     } else if (tkn !== "" && tkn !== "No se encontró el usuario") {
         try {
-            let res = await fetch("http://localhost:8888/reportes/materiales")
+
+            let res = await fetch("http://localhost:8888/reportes/materiales", {
+                method: 'POST',
+                body: tkn, // data can be `string` or {object}!
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                }
+            })
                     .then(res => res.json())
                     .then(reports => {
                         console.log(reports)
                         tablaMateriales(reports)
                     })
+
+
         } catch (error) {
             console.log(error);
         }
@@ -53,7 +62,13 @@ async function reportesCongestiones() {
         alert("Inicie sesión...");
     } else if (tkn !== "" && tkn !== "No se encontró el usuario") {
         try {
-            let res = await fetch("http://localhost:8888/reportes/congestiones")
+            let res = await fetch("http://localhost:8888/reportes/congestiones",{
+                        method: 'POST',
+                        body: tkn, // data can be `string` or {object}!
+                        headers: {
+                            'Content-Type': 'application/json; charset=UTF-8'
+                        }
+                    })
                     .then(res => res.json())
                     .then(reports => {
                         console.log(reports)

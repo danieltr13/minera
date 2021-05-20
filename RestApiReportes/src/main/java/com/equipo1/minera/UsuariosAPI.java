@@ -34,6 +34,8 @@ public class UsuariosAPI {
         String tkn = this.validarUser.validaUsuario(usuario);
         JsonObject json = new JsonObject();
         json.addProperty("token", tkn);
+        ValidarUsuario.tkns.append(json.toString());
+        System.out.println(ValidarUsuario.tkns.toString());
         if (tkn != null) {
             return new ResponseEntity<>(json.toString(), HttpStatus.OK);
         } else {

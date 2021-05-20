@@ -42,7 +42,6 @@ public class ValidarUsuario {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             token = JWT.create().withIssuer("auth0").
                     withClaim("usuario", user).sign(algorithm);
-            tkns.append(token);
             verificarToken(token);
         } catch (JWTCreationException e) {
             System.err.println(e.getMessage());
