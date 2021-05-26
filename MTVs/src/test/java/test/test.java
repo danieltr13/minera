@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 public class test {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TimeoutException, IOException {
         //ComunicacionSemaforo cs = new ComunicacionSemaforo();
         //cs.consumer();
         //ComunicacionCamionero cc= new ComunicacionCamionero();       
@@ -31,12 +31,12 @@ public class test {
         //ConsumerCliente cc= new ConsumerCliente();
         
        /// SenderSemaforoTyrus senderS= new SenderSemaforoTyrus();
-        
-       // senderS.sendSemaforos("Hola desde mtvs");
+        SenderSemaforo senderS= new SenderSemaforo();
+        senderS.send("semaforo1","GO");
         // cc.sendSemaforos("Hola desde el semaforo");
 //        SenderVehiculoTyrus svt = new SenderVehiculoTyrus();
-         SenderNotificationTyrus senderNotificationTyrus= new SenderNotificationTyrus();
-         senderNotificationTyrus.sendNotificacion("Muy buenas aquí vegueta 777 comentando");
+//         SenderNotificationTyrus senderNotificationTyrus= new SenderNotificationTyrus();
+//         senderNotificationTyrus.sendNotificacion("Muy buenas aquí vegueta 777 comentando");
         //svt.sendUbications("Hola desde mtvs soy un vehiculo");
     }
 }

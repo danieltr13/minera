@@ -10,9 +10,12 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.log4j.BasicConfigurator;
 
 /**
  *
@@ -28,9 +31,10 @@ public class EnviarRMQ implements IComunicaciónCamionero {
     @Override
     public void enviarReporte(String jReporte) {
         ConnectionFactory factory = new ConnectionFactory();
+        BasicConfigurator.configure();
         factory.setHost("localhost");
-        try ( Connection connection = factory.newConnection();  Channel channel = connection.createChannel()) {
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null); 
+        try ( Connection connection = factory.newConnection();  Channel channel = connection.createChannel()){
+            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
             channel.basicPublish("", QUEUE_NAME, null, jReporte.getBytes());
         } catch (IOException | TimeoutException ex) {
             Logger.getLogger(EnviarRMQ.class.getName()).log(Level.SEVERE, null, ex);

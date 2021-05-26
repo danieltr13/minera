@@ -18,7 +18,7 @@ public class SenderSemaforo {
     public SenderSemaforo() {
     }
 
-    public static void send(String route, String messages) {
+    public static void send(String messages) {
        ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         try ( Connection connection = factory.newConnection();  Channel channel = connection.createChannel()) {

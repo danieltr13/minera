@@ -11,6 +11,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
+import org.apache.log4j.BasicConfigurator;
 
 /**
  *
@@ -21,6 +22,7 @@ public class SenderVehiculoTyrus {
     private final static String QUEUE_VEHICULO = "vehiculo_sender";
 
     public void sendUbications(String v) {
+        BasicConfigurator.configure();
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         try ( Connection connection = factory.newConnection();  Channel channel = connection.createChannel()) {

@@ -26,7 +26,7 @@ public class MiEndpoint {
 
     @OnMessage
     public void onMessage(String message) {
-       System.out.println("Received msg: "+message);        
+       System.out.println("vehiculo: "+message);        
     }    
     
     

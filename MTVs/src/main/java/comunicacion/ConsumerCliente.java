@@ -27,9 +27,9 @@ public class ConsumerCliente {
     private final static String QUEUE_CLIENTE = "cliente_consumer";
     private SenderSemaforo senderSemaforo;
     private final Gson gson = new Gson();
-    
+
     public ConsumerCliente() {
-        this.senderSemaforo= new SenderSemaforo();
+        this.senderSemaforo = new SenderSemaforo();
         consumer();
     }
 
@@ -41,16 +41,20 @@ public class ConsumerCliente {
             Channel channel = connection.createChannel();
             channel.queueDeclare(QUEUE_CLIENTE, false, false, false, null);
             DeliverCallback deliverCallback = (String consumerTag, Delivery delivery) -> {
-                String d = " ";
-                d = new String(delivery.getBody(), StandardCharsets.UTF_8);
-                System.out.println(" [x] Received '" + d + "'");
-                /*try {
-                    JsonObject jsonEstado= stringToJson(d);
-                    this.senderSemaforo.send(jsonEstado.get("route").getAsString(),
-                            jsonEstado.get("estado").getAsString() );
-                } catch (IOException | TimeoutException ex) {
+                try {
+                    String d = " ";
+                    d = new String(delivery.getBody(), StandardCharsets.UTF_8);
+                    System.out.println(" [x] Received '" + d + "'");
+                    String[] messages;
+                    messages = d.split(",");
+                    String route = messages[0];
+                    String estado = messages[1];
+                    this.senderSemaforo.send(route, estado);
+                } catch (IOException ex) {
                     Logger.getLogger(ConsumerCliente.class.getName()).log(Level.SEVERE, null, ex);
-                }*/
+                } catch (TimeoutException ex) {
+                    Logger.getLogger(ConsumerCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
             };
             channel.basicConsume(QUEUE_CLIENTE, true, deliverCallback, consumerTag -> {
             });
@@ -60,10 +64,10 @@ public class ConsumerCliente {
             Logger.getLogger(ConsumerSemaforo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private JsonObject stringToJson(String json) {
         JsonObject jobject = gson.fromJson(json, JsonObject.class);
         return jobject;
     }
-    
+
 }

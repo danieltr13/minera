@@ -24,13 +24,13 @@ import javax.websocket.WebSocketContainer;
 public class ClienteWebSockete {
 
     private static Object waitLock = new Object();
-    private ConsumerSemaforo cs = new ConsumerSemaforo(this);
+    private ConsumerSemaforo cs;
     private RemoteEndpoint.Basic basicRemote;
-    
-    public ClienteWebSockete(){
+
+    public ClienteWebSockete() {
         this.conection();
     }
-    
+
     public void conection() {
         WebSocketContainer container = null;//
         Session session = null;
@@ -42,6 +42,7 @@ public class ClienteWebSockete {
             session = container.connectToServer(EndpointSemaforo.class,
                     URI.create("ws://localhost:8080/Cliente/websocketendpoint"));
             basicRemote = session.getBasicRemote();
+            this.cs = new ConsumerSemaforo(this);
             String msj = null;
             Scanner sc = new Scanner(System.in);
             do {

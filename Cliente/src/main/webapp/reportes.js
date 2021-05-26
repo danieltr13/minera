@@ -33,7 +33,6 @@ async function reportesMaterials() {
         alert("Inicie sesión...");
     } else if (tkn !== "" && tkn !== "No se encontró el usuario") {
         try {
-
             let res = await fetch("http://localhost:8888/reportes/materiales", {
                 method: 'POST',
                 body: tkn, // data can be `string` or {object}!

@@ -26,9 +26,11 @@ public class EndpointSemaforo {
     @OnMessage
     public void onMessage(String message) {
         if (!message.equalsIgnoreCase("Ya me conecte")) {
-            SenderSemaforo.send(message, message);
+            String[] messages;
+            messages = message.split(":");
+            String s = messages[1].replaceAll(" ", "");
+            SenderSemaforo.send(s);
         }
-        System.out.println("Received msg: " + message);
     }
 
 }

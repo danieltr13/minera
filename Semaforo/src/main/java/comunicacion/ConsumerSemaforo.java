@@ -49,6 +49,7 @@ public class ConsumerSemaforo extends Thread{
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
                 System.out.println(message);
+                System.out.println(this.obtenerEstado(message));
                 semaforo.setEstado(this.obtenerEstado(message));
                 semaforo.setCambioExt(true);
             };
@@ -62,11 +63,15 @@ public class ConsumerSemaforo extends Thread{
     }
      
     private Estado obtenerEstado(String message){
-        JsonObject jsonve = stringToJson(message);
-        String estado = jsonve.get("estado").getAsString();
-        System.out.println("ESTADO RECIBIDO:"+estado);
-        return Estado.valueOf(estado);
-        //return Estado.STOP;
+        if (message.equalsIgnoreCase(Estado.GO.toString())) {
+            System.out.println("cambiando a go");
+            return Estado.GO;
+        }else if (message.equalsIgnoreCase(Estado.CAUTION.toString())) {
+            System.out.println("cambiando a stop");
+            return Estado.CAUTION;
+        }
+        System.out.println("cambiando a stop");
+        return Estado.STOP;
     }
     
     private JsonObject stringToJson(String json) {

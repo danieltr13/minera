@@ -22,9 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Alfon
  */
 public class ValidarUsuario {
-
+    
     static StringBuffer tkns = new StringBuffer();
-
+    
     @Autowired
     private IDBC facade;
 

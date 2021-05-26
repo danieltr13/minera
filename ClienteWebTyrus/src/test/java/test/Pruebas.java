@@ -17,7 +17,7 @@ public class Pruebas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SenderSemaforo.send("hola", "Desde el tyrus");
+        SenderSemaforo.send( "Desde el tyrus");
     }
     
 }

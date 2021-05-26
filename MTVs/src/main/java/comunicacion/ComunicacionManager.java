@@ -29,13 +29,13 @@ public class ComunicacionManager {
     private SenderSemaforo semaforo;
 
     public ComunicacionManager() {
+        this.semaforoTyrus = new SenderSemaforoTyrus();
+        this.semaforo = new SenderSemaforo();
+        this.vehiculoTyrus= new SenderVehiculoTyrus();
         this.cCamionero = new ConsumerCamionero();
         this.cSemaforo = new ConsumerSemaforo(this);
         this.cVehiculo = new ConsumerVehiculo(this);
         this.cCliente= new ConsumerCliente();
-        this.semaforoTyrus = new SenderSemaforoTyrus();
-        this.semaforo = new SenderSemaforo();
-        this.vehiculoTyrus= new SenderVehiculoTyrus();
     }
 
     public void notifyClientVehiculo(String v) {

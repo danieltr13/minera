@@ -23,7 +23,7 @@ import javax.websocket.WebSocketContainer;
  */
 public class ClienteWebSocketNotificacion {
     private static Object waitLock = new Object();
-    private ConsumerNotificacion cs = new ConsumerNotificacion(this);
+    private ConsumerNotificacion cs ;
     private RemoteEndpoint.Basic basicRemote;
     
     public ClienteWebSocketNotificacion(){
@@ -41,6 +41,7 @@ public class ClienteWebSocketNotificacion {
             session = container.connectToServer(EndPointNotificacion.class,
                     URI.create("ws://localhost:8080/Cliente/websocketendpointnotificacion"));
             basicRemote = session.getBasicRemote();
+            this.cs = new ConsumerNotificacion(this);
             String msj = null;
             Scanner sc = new Scanner(System.in);
             do {

@@ -24,7 +24,7 @@ import javax.websocket.WebSocketContainer;
  */
 public class ClienteWebSocketVehiculo {
     private static Object waitLock = new Object();
-    private ConsumerVehiculo cs = new ConsumerVehiculo(this);
+    private ConsumerVehiculo cs;
     private RemoteEndpoint.Basic basicRemote;
     
     public ClienteWebSocketVehiculo(){
@@ -42,6 +42,7 @@ public class ClienteWebSocketVehiculo {
             session = container.connectToServer(MiEndpoint.class,
                     URI.create("ws://localhost:8080/Cliente/websocketendpointvehiculo"));
             basicRemote = session.getBasicRemote();
+            this.cs = new ConsumerVehiculo(this);
             String msj = null;
             Scanner sc = new Scanner(System.in);
             do {
