@@ -45,11 +45,9 @@ public class ConsumerCliente {
                     String d = " ";
                     d = new String(delivery.getBody(), StandardCharsets.UTF_8);
                     System.out.println(" [x] Received '" + d + "'");
-                    String[] messages;
-                    messages = d.split(",");
-                    String route = messages[0];
-                    String estado = messages[1];
-                    this.senderSemaforo.send(route, estado);
+                    String[] messages = d.split(",");
+                    System.out.println(messages[1]);
+                    this.senderSemaforo.send(messages[0], messages[1]);
                 } catch (IOException ex) {
                     Logger.getLogger(ConsumerCliente.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (TimeoutException ex) {

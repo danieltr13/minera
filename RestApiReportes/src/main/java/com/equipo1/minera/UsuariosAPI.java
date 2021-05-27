@@ -28,7 +28,7 @@ public class UsuariosAPI {
     private ValidarUsuario validarUser;
 
     @PostMapping("/validar")
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "https://localhost:8443")
     public ResponseEntity<?> iniciarSesion(@RequestBody Usuario usuario) {
 
         String tkn = this.validarUser.validaUsuario(usuario);

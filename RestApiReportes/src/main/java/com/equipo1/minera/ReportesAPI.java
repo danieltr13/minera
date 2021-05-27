@@ -36,7 +36,7 @@ public class ReportesAPI {
     }
 
     @PostMapping("/materiales")
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "https://localhost:8443")
     public ResponseEntity<?> reporteMateriales(@RequestBody String tkn) {
         int index = ValidarUsuario.tkns.indexOf(tkn);
         JsonObject noUser = new JsonObject();
@@ -49,7 +49,7 @@ public class ReportesAPI {
     }
 
     @PostMapping("/congestiones")
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "https://localhost:8443")
     public ResponseEntity<?> reporteCongestiones(@RequestBody String tkn) {
         int index = ValidarUsuario.tkns.indexOf(tkn);
         JsonObject noUser = new JsonObject();
