@@ -82,7 +82,7 @@ async function reportesCongestiones() {
 
 async function iniciarSesion(name, password) {
     try {
-        var data = {name: name,
+        let data = {name: name,
             password: password};
         console.log(JSON.parse(JSON.stringify(data)))
         let res = await fetch("http://localhost:8888/usuario/validar", {
